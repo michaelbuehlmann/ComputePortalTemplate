@@ -1,0 +1,10 @@
+display_name: null
+engine:
+  provider:
+    init_blocks: 4
+    max_blocks: 4
+    min_blocks: 4
+    type: LocalProvider
+    worker_init: |
+      source ${HCP_REPO}/flows_entry_point/.venv/bin/activate
+  type: GlobusComputeEngine

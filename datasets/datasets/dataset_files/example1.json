@@ -1,0 +1,7 @@
+{
+    "system": "polaris",
+    "name": "Example 1",
+    "required_globus_groups": [
+        "OpenCosmoALCF"
+    ]
+}

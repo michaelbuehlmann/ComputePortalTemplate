@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "endpoint"
+version = "0.1.0"
+description = ""
+authors = ["Michael Buehlmann <buehlmann.michi@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "endpoint" },
+    { include = "compute_functions" }
+]
+
+[tool.poetry.scripts]
+setup-endpoint = "hcp_compute_functions.setup_script:cli"
+
+example-task = "endpoint.scripts.example_task:cli"
+
+[tool.poetry.dependencies]
+python = "^3.11,<3.14"
+mpi4py = "^4.0.1"
+numba = "^0.61.0"
+globus-compute-endpoint = "^2.3.2"
+click = "^8.1.7"
+toml = "^0.10.2"
+plotly = "^5.18.0"
+datasets = { path = "../datasets", develop = true }
+python-dotenv = "^1.0.1"
+pydantic-settings = "^2.6.1"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.13.0"
+pkginfo = "^1.12.1.2"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '\.git|\.venv|build|_build|dist'
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+disable_error_code = ['import-untyped', 'import-not-found']
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

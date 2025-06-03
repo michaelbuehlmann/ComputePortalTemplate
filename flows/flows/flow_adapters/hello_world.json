@@ -1,0 +1,66 @@
+{
+    "flow_slug": "hello-world",
+    "flow_name": "Hello World",
+    "flow_description": "This is a hello world example",
+    "flow_uuid": "<compute_with_check_flow>",
+    "flow_input": {
+        "compute_endpoint_name": "compute-portal-{SYSTEM}-1-node",
+        "compute_function_name": "_hello_world",
+        "compute_input_data": {
+            "params": {
+                "dataset": "__dataset",
+                "name": "__name",
+                "option": "__option"
+            }
+        }
+    },
+    "flow_input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+            "dataset": {
+                "default": "DATASET_1",
+                "description": "example dataset one",
+                "enum": [
+                    "Dataset 1",
+                    "Dataset 2"
+                ],
+                "enum_display": [
+                    "Dataset 1",
+                    "Dataset 2"
+                ],
+                "title": "Dataset",
+                "order": 1
+            },
+            "option": {
+                "default": false,
+                "description": "an example checkbox",
+                "title": "Example Checkbox",
+                "order": 2,
+                "type": "boolean"
+            },
+            "name": {
+                "default": "World",
+                "description": "example name",
+                "title": "Name",
+                "order": 3,
+                "type": "string"
+            }
+        },
+        "required": [
+            "dataset",
+            "name"
+        ],
+        "title": "'Hello World' Flow Input Schema",
+        "type": "object"
+    },
+    "run_label_format_string": "Hello World: {name} (data={dataset})",
+    "frontend_settings": {
+        "category": "Example 1",
+        "previewURL": "$.ComputeResults.details.result[0].preview_url",
+        "resultsURL": "$.ComputeResults.details.result[0].results_url",
+        "message": "$.ComputeResults.details.result[0].message",
+        "logURL": "$.ComputeResults.details.result[0].run_log_url",
+        "resultGlobusCollectionUUID": "$.ComputeResults.details.result[0].collection_uuid",
+        "resultGlobusCollectionPath": "$.ComputeResults.details.result[0].collection_path"
+    }
+}

@@ -1,0 +1,34 @@
+display_name: null
+engine:
+  type: GlobusComputeEngine
+  max_workers_per_node: 1
+  strategy: simple
+  address:
+    type: address_by_interface
+    ifname: bond0
+
+  provider:
+    type: PBSProProvider
+    launcher:
+      type: SimpleLauncher
+    account: "OpenCosmo"
+    queue: "debug"  # TODO: change to "demand" for production
+    cpus_per_node: 32
+    select_options: ngpus=0
+    scheduler_options: "#PBS -l filesystems=home:grand:eagle"
+    worker_init: |
+      export HCP_SYSTEM=POLARIS
+      export HCP_WORKING_BASE=/grand/OpenCosmo/$(whoami)/
+      export HCP_RESULT_BASE=/eagle/OpenCosmo/ComputePortal/
+      export HCP_RESULT_COLLECTION_UUID=f93f13a1-745f-4335-94ec-6cd45bf822c6
+      export HCP_RESULT_COLLECTION_PATH=ComputePortal/
+      export HCP_RESULT_COLLECTION_URL=https://g-45a93.fd635.8443.data.globus.org/ComputePortal
+      source ~/hacc-compute-portal/hcp_endpoint/env/polaris.env.sh
+      source ~/hacc-compute-portal/hcp_endpoint/.venv/bin/activate
+      cd ~
+    walltime: 00:30:00
+    nodes_per_block: 1
+
+    init_blocks: 0
+    max_blocks: 4
+    min_blocks: 0

@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "flows"
+version = "0.1.0"
+description = ""
+authors = ["Michael Bühlmann <buehlmann.michi@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+globus-compute-sdk = "^2.19.0"
+globus-sdk = "^3.28.0"
+python-dotenv = "^1.0.0"
+click = "^8.1.7"
+
+entrypoint = { path = "../entrypoint", develop = true }
+endpoint = { path = "../endpoint", develop = true }
+
+[tool.poetry.scripts]
+check-system = "flows.scripts.check_system:cli"
+check-entrypoint = "flows.scripts.check_entrypoint:cli"
+check-function = "flows.scripts.check_function:cli"
+setup-flows = "flows.scripts.setup_flows:cli"
+remove-endpoint = "flows.scripts.remove_endpoint:cli"
+
+[tool.poetry.group.development.dependencies]
+ipython = "^8.17.2"
+ipykernel = "^6.25.2"
+mypy = "^1.13.0"
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+disable_error_code = 'import-untyped'
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '\.git|\.venv|build|_build|dist'
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
