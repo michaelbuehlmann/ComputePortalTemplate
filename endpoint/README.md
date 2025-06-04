@@ -12,42 +12,18 @@ the Python library that contains the compute capabilities.
 The setup currently is designed to run on ALCF/Polaris and NERSC/Perlmutter.
 The `config/` directory contains the following endpoint configurations:
 
-- `<system>/hacc-compute-portal-<system>-1-node`: For functions that do not benefit from
+- `<system>/compute-portal-<system>-1-node`: For functions that do not benefit from
   additional resources, such as finding individual halos and galaxies and calculating
   surface densities.
-- `<system>/hacc-compute-portal-<system>-4-nodes`: For functions that benefit from parallel
-  processing, such as halo and galaxy catalog queries where many objects will be
-  returned
 
 ### 1.1. Implemented Features/Functions
 
-The implementation of these features can be found in `hcp_endpoint/scripts/<feature>`
-
-- `halo_query`: extracts all (up to an absolute limit) halos matching specified
-  filters from a catalog (`haloproperties`).
-- `galaxy_query`: extracts all (up to an absolute limit) galaxies matching
-  specified filters from a catalog (`galaxyproperties`).
-- `halo_particles_query`: extracts all particles from a halo (specified by its
-  `fof_halo_tag`). For hydro simulations, particles are separated by species.
-  Also returns a surface density map for each of the species, calculated via
-  DTFE or CIC.
+The implemented features can be found in `hcp_endpoint/scripts/<feature>`
 
 The corresponding Globus-Compute functions that call those features via subprocess
 are in `functions/<feature>`
 
-### 1.2. Currently Supported Data Products
-
-#### 1.2.1. Gravity-Only
-
-- LastJourneySV: 1024^3 particles, 250Mpc/h box
-- LastJourney: 10752^3 particles, 3400Mpc/h box
-
-#### 1.2.2. Hydro w/Subgrid
-
-- SCIDAC_T001: 512^3 particles, 128Mpc/h box
-- SCIDAC_T002: 512^3 particles, 128Mpc/h box
-- SCIDAC_T003: 512^3 particles, 128Mpc/h box
-
+### 1.2. Currently Supported Datasets
 ---
 
 ## 2. Installation
@@ -57,19 +33,19 @@ are in `functions/<feature>`
 #### Repository Location
 
 The endpoint configuration files currently assume that the repository is located
-under `~/hacc-compute-portal`. Therefore, either change the configuration files
+under `~/compute-portal`. Therefore, either change the configuration files
 or make sure to clone the repository to your home, i.e.
 
 ```bash
 cd ~
-git clone git@git.cels.anl.gov:hacc/hacc-compute-portal.git
+git clone https://github.com/michaelbuehlmann/ComputePortalTemplate.git -C compute-portal
 ```
 
 #### Python
 
 The endpoint library requires a recent python version (`^3.11`).
 Depending on the system you're running on, there may be a source file in
-`hacc-compute-portal/endpoint/env` that loads the required modules. For example
+`compute-portal/endpoint/env` that loads the required modules. For example
 on **Polaris**, run
 
 ```bash
@@ -146,9 +122,7 @@ GLOBUS_COMPUTE_CLIENT_SECRET="<Compute Service Account Secret>"
 2.  Create the globus compute endpoints by running
 
     ```bash
-    globus-compute-endpoint configure --endpoint-config config/polaris/hacc-compute-portal-polaris-1-node.yaml hacc-compute-portal-polaris-1-node
-
-    globus-compute-endpoint configure --endpoint-config config/polaris/hacc-compute-portal-polaris-4-nodes.yaml hacc-compute-portal-polaris-4-nodes
+    globus-compute-endpoint configure --endpoint-config config/polaris/compute-portal-polaris-1-node.yaml hacc-compute-portal-polaris-1-node
     ```
 
     Replace `polaris` with the system you are installing the endpoints for.

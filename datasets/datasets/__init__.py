@@ -19,7 +19,7 @@ datasets: dict[str, Dataset] = {}
 # TODO: fix path
 _dataset_path = Path(__file__).parent / "dataset_files"
 
-# Loop over all json files in the simulations directory
+# Loop over all json files in the datasets directory
 for _dataset_file in _dataset_path.glob("*.json"):
     with open(_dataset_file) as f:
         _dataset_dict = json.load(f)

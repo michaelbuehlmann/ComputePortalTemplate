@@ -2,10 +2,10 @@ import os
 from typing import Annotated
 
 from pydantic.functional_validators import AfterValidator
-from datasets.datasets import Dataset
-from datasets.datasets import datasets as _datasets
+from datasets import Dataset
+from datasets import datasets as _datasets
 
-# Only load simulations for this system
+# Only load datasets for this system
 _this_system = os.environ.get("HCP_SYSTEM", None)
 if _this_system is None:
     raise RuntimeError("HCP_SYSTEM environment variable not set")
@@ -13,10 +13,7 @@ _this_system = _this_system.lower()
 
 datasets = {}
 for dataset_name, dataset in _datasets.items():
-    try:
-        system = dataset.system
-    except AttributeError:
-        system = next(iter(dataset.values())).system
+    system = dataset.system
     if system == _this_system:
         datasets[dataset_name] = dataset
 
